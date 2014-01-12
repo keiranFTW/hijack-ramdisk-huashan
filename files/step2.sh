@@ -71,9 +71,9 @@ echo "*** PL: starting recovery boot script ***" > /dev/kmsg
 LED_RED="$(ls /sys/class/leds/*-red/brightness)"
 LED_RED_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
 LED_BLUE="$(ls /sys/class/leds/*-blue/brightness)"
-LED_BLUE_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
+LED_BLUE_CURRENT="$(ls /sys/class/leds/*-blue/led_current)"
 LED_GREEN="$(ls /sys/class/leds/*-green/brightness)"
-LED_GREEN_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
+LED_GREEN_CURRENT="$(ls /sys/class/leds/*-green/led_current)"
 
 # Trigger short vibration
 echo '200' > /sys/class/timed_output/vibrator/enable
