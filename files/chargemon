@@ -1,0 +1,12 @@
+#!/system/bin/sh
+export PATH=/system/xbin:/system/bin:/sbin/:bin
+
+mount -o remount,rw /
+mkdir /tmp/
+cp /system/xbin/busybox /tmp/
+cp /system/bin/step2.sh /tmp/
+cp /system/bin/recovery.tar /tmp/
+cp /system/bin/jelly.tar /tmp/
+cd /tmp/
+for i in `busybox --list` ; do ln -s /tmp/busybox $i ; done
+exec /tmp/sh -c /tmp/step2.sh
