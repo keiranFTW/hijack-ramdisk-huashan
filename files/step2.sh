@@ -68,18 +68,22 @@ export PATH=/tmp
 
 echo "*** PL: starting recovery boot script ***" > /dev/kmsg
 
+LED_RED="$(ls /sys/class/leds/*-red/brightness)"
+LED_RED_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
+LED_BLUE="$(ls /sys/class/leds/*-blue/brightness)"
+LED_BLUE_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
+LED_GREEN="$(ls /sys/class/leds/*-green/brightness)"
+LED_GREEN_CURRENT="$(ls /sys/class/leds/*-red/led_current)"
+
 # Trigger short vibration
 echo '200' > /sys/class/timed_output/vibrator/enable
 # Show blue led
-echo '255' > /sys/class/leds/LED1_B/brightness
-echo '255' > /sys/class/leds/LED2_B/brightness
-echo '255' > /sys/class/leds/LED3_B/brightness
-echo '0' > /sys/class/leds/LED1_R/brightness
-echo '0' > /sys/class/leds/LED2_R/brightness
-echo '0' > /sys/class/leds/LED3_R/brightness
-echo '0' > /sys/class/leds/LED1_G/brightness
-echo '0' > /sys/class/leds/LED2_G/brightness
-echo '0' > /sys/class/leds/LED3_G/brightness
+echo '255' > $LED_BLUE
+echo '255' > $LED_BLUE_CURRENT
+echo '0' > $LED_GREEN
+echo '0' > $LED_GREEN_CURRENT
+echo '0' > $LED_RED
+echo '0' > $LED_RED_CURRENT
 
 # wait for vol+/vol- keys 
 cat /dev/input/event8 > /dev/keycheck&
@@ -90,15 +94,12 @@ kill -9 $!
 if [ -s /dev/keycheck -o -e /cache/recovery/boot ]
 then
     # trigger green LED
-    echo '0' > /sys/class/leds/LED1_B/brightness
-    echo '0' > /sys/class/leds/LED2_B/brightness
-    echo '0' > /sys/class/leds/LED3_B/brightness
-    echo '0' > /sys/class/leds/LED1_R/brightness
-    echo '0' > /sys/class/leds/LED2_R/brightness
-    echo '0' > /sys/class/leds/LED3_R/brightness
-    echo '255' > /sys/class/leds/LED1_G/brightness
-    echo '255' > /sys/class/leds/LED2_G/brightness
-    echo '255' > /sys/class/leds/LED3_G/brightness
+    echo '0' > $LED_BLUE
+    echo '0' > $LED_BLUE_CURRENT
+    echo '255' > $LED_GREEN
+    echo '255' > $LED_GREEN_CURRENT
+    echo '0' > $LED_RED
+    echo '0' > $LED_RED_CURRENT
     sleep 1
 
     rm /cache/recovery/boot
@@ -112,15 +113,12 @@ then
     fi
 
     # trigger red LED
-    echo '0' > /sys/class/leds/LED1_B/brightness
-    echo '0' > /sys/class/leds/LED2_B/brightness
-    echo '0' > /sys/class/leds/LED3_B/brightness
-    echo '100' > /sys/class/leds/LED1_R/brightness
-    echo '100' > /sys/class/leds/LED2_R/brightness
-    echo '100' > /sys/class/leds/LED3_R/brightness
-    echo '0' > /sys/class/leds/LED1_G/brightness
-    echo '0' > /sys/class/leds/LED2_G/brightness
-    echo '0' > /sys/class/leds/LED3_G/brightness
+    echo '0' > $LED_BLUE
+    echo '0' > $LED_BLUE_CURRENT
+    echo '0' > $LED_GREEN
+    echo '0' > $LED_GREEN_CURRENT
+    echo '100' > $LED_RED
+    echo '100' > $LED_RED_CURRENT
     sleep 1
 
     # chroot
@@ -130,15 +128,12 @@ fi
 
 
 # show violet debug led
-echo '255' > /sys/class/leds/LED1_B/brightness
-echo '255' > /sys/class/leds/LED2_B/brightness
-echo '255' > /sys/class/leds/LED3_B/brightness
-echo '255' > /sys/class/leds/LED1_R/brightness
-echo '255' > /sys/class/leds/LED2_R/brightness
-echo '255' > /sys/class/leds/LED3_R/brightness
-echo '0' > /sys/class/leds/LED1_G/brightness
-echo '0' > /sys/class/leds/LED2_G/brightness
-echo '0' > /sys/class/leds/LED3_G/brightness
+echo '255' > $LED_BLUE
+echo '255' > $LED_BLUE_CURRENT
+echo '0' > $LED_GREEN
+echo '0' > $LED_GREEN_CURRENT
+echo '255' > $LED_RED
+echo '255' > $LED_RED_CURRENT
 sleep 1
 
 prepare_start
@@ -152,15 +147,12 @@ then
 fi
 
 # normal boot, clear led
-echo '0' > /sys/class/leds/LED1_B/brightness
-echo '0' > /sys/class/leds/LED2_B/brightness
-echo '0' > /sys/class/leds/LED3_B/brightness
-echo '0' > /sys/class/leds/LED1_R/brightness
-echo '0' > /sys/class/leds/LED2_R/brightness
-echo '0' > /sys/class/leds/LED3_R/brightness
-echo '0' > /sys/class/leds/LED1_G/brightness
-echo '0' > /sys/class/leds/LED2_G/brightness
-echo '0' > /sys/class/leds/LED3_G/brightness
+echo '0' > $LED_BLUE
+echo '0' > $LED_BLUE_CURRENT
+echo '0' > $LED_GREEN
+echo '0' > $LED_GREEN_CURRENT
+echo '0' > $LED_RED
+echo '0' > $LED_RED_CURRENT
 
 # chroot
 chroot / /init
