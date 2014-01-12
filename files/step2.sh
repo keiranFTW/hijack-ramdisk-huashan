@@ -11,12 +11,14 @@ prepare_start () {
         /system/bin/stop ueventd > /dev/kmsg
         /system/bin/stop tad > /dev/kmsg
         /system/bin/stop adbd > /dev/kmsg
+        /system/bin/stop sdcard > /dev/kmsg
         /system/xbin/killall -9 ueventd 2> /dev/kmsg
         /system/xbin/killall -9 secchand 2> /dev/kmsg
         /system/xbin/killall -9 tad 2> /dev/kmsg
+        /system/xbin/killall -9 sdcard 2> /dev/kmsg
+
         echo "***** PL: ps after stop : ****" > /dev/kmsg
         ps > /dev/kmsg
-
         # unmounting and cleaning
         ## /system
         umount -l /dev/block/platform/msm_sdcc.1/by-name/System
@@ -29,7 +31,7 @@ prepare_start () {
         ## /sdcard
         umount -l /mnt/sdcard
         umount -l /sdcard
-        umount -l /dev/fuse
+        umount -l /data/media
         
         ## try hard way
         umount -f /data/idd
@@ -60,6 +62,7 @@ prepare_start () {
         cd /
         rm -r /sbin
         rmdir /sdcard
+        rm init
         rm -f etc init* uevent* default*
 }
 # ----- start the fun :) ------
@@ -120,10 +123,9 @@ then
     echo '100' > $LED_RED
     echo '100' > $LED_RED_CURRENT
     sleep 1
-
+    
     # chroot
     chroot / /init
-    exec /system/bin/charger
 fi
 
 
@@ -156,5 +158,3 @@ echo '0' > $LED_RED_CURRENT
 
 # chroot
 chroot / /init
-
-exec /system/bin/charger

@@ -11,7 +11,7 @@ adb push files/step2.sh /data/local/tmp/
 adb push files/installer.sh /data/local/tmp/
 adb push files/ric /data/local/tmp/
 adb shell chmod 755 /data/local/tmp/installer.sh
-adb shell su -c /data/local/tmp/installer.sh
+adb shell /data/local/tmp/installer.sh
 adb shell rm /data/local/tmp/installer.sh
 echo "Done!"
 read
