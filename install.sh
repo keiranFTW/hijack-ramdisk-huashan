@@ -14,3 +14,4 @@ adb shell chmod 755 /data/local/tmp/installer.sh
 adb shell su -c /data/local/tmp/installer.sh
 adb shell rm /data/local/tmp/installer.sh
 echo "Done!"
+read
