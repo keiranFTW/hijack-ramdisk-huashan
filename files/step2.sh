@@ -12,11 +12,11 @@ prepare_start () {
         # /system/bin/stop tad > /dev/kmsg
         # /system/bin/stop adbd > /dev/kmsg
         # /system/bin/stop sdcard > /dev/kmsg
-        /sbin/killall -9 ueventd > /dev/kmsg
-        /sbin/killall -9 secchand > /dev/kmsg
-        /sbin/killall -9 tad > /dev/kmsg
-        /sbin/killall -9 adbd > /dev/kmsg
-        /sbin/killall -9 sdcard > /dev/kmsg
+        killall -9 ueventd > /dev/kmsg
+        killall -9 secchand > /dev/kmsg
+        killall -9 tad > /dev/kmsg
+        killall -9 adbd > /dev/kmsg
+        killall -9 sdcard > /dev/kmsg
 
         echo "***** PL: ps after stop : ****" > /dev/kmsg
         ps > /dev/kmsg
