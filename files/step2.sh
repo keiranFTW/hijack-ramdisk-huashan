@@ -7,15 +7,16 @@ prepare_start () {
         #
         echo "**** PL: stop services ****" > /dev/kmsg
         # stop doesn't seem to work at this boot state, we should check why
-        /system/bin/stop secchan > /dev/kmsg
-        /system/bin/stop ueventd > /dev/kmsg
-        /system/bin/stop tad > /dev/kmsg
-        /system/bin/stop adbd > /dev/kmsg
-        /system/bin/stop sdcard > /dev/kmsg
-        /system/xbin/killall -9 ueventd 2> /dev/kmsg
-        /system/xbin/killall -9 secchand 2> /dev/kmsg
-        /system/xbin/killall -9 tad 2> /dev/kmsg
-        /system/xbin/killall -9 sdcard 2> /dev/kmsg
+        # /system/bin/stop secchan > /dev/kmsg
+        # /system/bin/stop ueventd > /dev/kmsg
+        # /system/bin/stop tad > /dev/kmsg
+        # /system/bin/stop adbd > /dev/kmsg
+        # /system/bin/stop sdcard > /dev/kmsg
+        /sbin/killall -9 ueventd > /dev/kmsg
+        /sbin/killall -9 secchand > /dev/kmsg
+        /sbin/killall -9 tad > /dev/kmsg
+        /sbin/killall -9 adbd > /dev/kmsg
+        /sbin/killall -9 sdcard > /dev/kmsg
 
         echo "***** PL: ps after stop : ****" > /dev/kmsg
         ps > /dev/kmsg
@@ -29,7 +30,7 @@ prepare_start () {
         ## /cache
         umount -l /dev/block/platform/msm_sdcc.1/by-name/Cache
         ## /sdcard
-        umount -l /mnt/sdcard
+        umount -l /mnt/sdcard/
         umount -l /sdcard
         umount -l /data/media
         
